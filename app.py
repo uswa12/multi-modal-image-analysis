@@ -235,22 +235,62 @@ and together they created something that transcended the mere act of photography
 st.markdown("<div class='title'>🧠 Multimodal Image AI</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Upload an image and let AI understand, feel, and tell its story</div>", unsafe_allow_html=True)
 
-col1, col2 = st.columns([1, 1])
+# Initialize session state
+if "caption" not in st.session_state:
+    st.session_state.caption = None
+if "uploaded_image" not in st.session_state:
+    st.session_state.uploaded_image = None
+if "camera_image" not in st.session_state:
+    st.session_state.camera_image = None
 
-with col1:
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
-    uploaded = st.file_uploader("Upload Image", type=["jpg", "png", "jpeg"])
-    if uploaded:
-        image = Image.open(uploaded).convert("RGB")
-        st.image(image, caption="📸 Uploaded Image", use_container_width=True)
-        analyze_btn = st.button("🚀 Analyze Image", use_container_width=True)
-    else:
-        analyze_btn = False
-    st.markdown("</div>", unsafe_allow_html=True)
+# ---------------- UI ---------------- #
+st.markdown("<div class='title'>🧠 Multimodal Image AI</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Upload an image or capture from camera and let AI understand, feel, and tell its story</div>", unsafe_allow_html=True)
 
-with col2:
-    if analyze_btn:
-        with st.spinner("Analyzing with AI..."):
+# Create tabs for upload and camera
+tab1, tab2 = st.tabs(["📤 Upload Image", "📹 Live Camera"])
+
+image = None
+analyze_btn = False
+
+with tab1:
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("<h4 style='margin-top: 0;'>📸 Upload Your Image</h4>", unsafe_allow_html=True)
+        uploaded = st.file_uploader("Choose an image file", type=["jpg", "png", "jpeg"], label_visibility="collapsed", key="file_upload_1")
+        
+        if uploaded:
+            st.session_state.uploaded_image = Image.open(uploaded).convert("RGB")
+            st.image(st.session_state.uploaded_image, use_container_width=True)
+        else:
+            st.markdown("<p style='text-align: center; color: rgba(255,255,255,0.5);'>Drag and drop or click to upload</p>", unsafe_allow_html=True)
+        
+        if st.session_state.uploaded_image:
+            analyze_btn = st.button("🚀 Analyze Uploaded Image", use_container_width=True, key="analyze_upload")
+        else:
+            analyze_btn = False
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("<h4 style='margin-top: 0;'>ℹ️ How It Works</h4>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style='font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.8);'>
+        • <b>Caption:</b> AI describes the image in one sentence<br>
+        • <b>Summary:</b> Detailed analysis of the scene<br>
+        • <b>Objects:</b> All detected items identified<br>
+        • <b>Emotion:</b> Mood and sentiment detected<br>
+        • <b>Story:</b> Creative narrative inspired by the image
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+    if analyze_btn and st.session_state.uploaded_image:
+        image = st.session_state.uploaded_image
+        with st.spinner("🤖 Analyzing image with AI..."):
             caption = generate_caption(image)
             objects = detect_objects(image, caption)
             summary = generate_summary(caption, objects)
@@ -262,9 +302,66 @@ with col2:
             st.session_state.summary = summary
             st.session_state.emotion = emotion
             st.session_state.story = story
+            st.session_state.image = image
+        st.success("✅ Analysis Complete!")
+        st.rerun()
 
-if "caption" in st.session_state:
+with tab2:
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("<h4 style='margin-top: 0;'>📹 Capture from Camera</h4>", unsafe_allow_html=True)
+        camera_image = st.camera_input("Take a photo from your camera", key="camera_input_1")
+        
+        if camera_image:
+            st.session_state.camera_image = Image.open(camera_image).convert("RGB")
+        
+        if st.session_state.camera_image:
+            analyze_btn_camera = st.button("🚀 Analyze Camera Image", use_container_width=True, key="analyze_camera")
+        else:
+            analyze_btn_camera = False
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("<h4 style='margin-top: 0;'>💡 Tips</h4>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style='font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.8);'>
+        • Ensure good lighting for better face detection<br>
+        • Face the camera directly for emotion analysis<br>
+        • Include objects for better object detection<br>
+        • Clear and stable images work best
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+    
+    if analyze_btn_camera and st.session_state.camera_image:
+        image = st.session_state.camera_image
+        with st.spinner("🤖 Analyzing image with AI..."):
+            caption = generate_caption(image)
+            objects = detect_objects(image, caption)
+            summary = generate_summary(caption, objects)
+            emotion = detect_emotion_from_image(image, objects)
+            story = generate_story(caption, objects)
+
+            st.session_state.caption = caption
+            st.session_state.objects = objects
+            st.session_state.summary = summary
+            st.session_state.emotion = emotion
+            st.session_state.story = story
+            st.session_state.image = image
+        st.success("✅ Analysis Complete!")
+        st.rerun()
+
+# Results Section
+if st.session_state.caption:
     st.markdown("<hr style='border:1px solid #38bdf8'>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; margin-bottom: 30px;'>📊 Analysis Results</h2>", unsafe_allow_html=True)
+    
+    # Display the analyzed image
+    st.image(st.session_state.image, caption="Analyzed Image", use_container_width=True)
 
     c1, c2, c3 = st.columns(3)
 
