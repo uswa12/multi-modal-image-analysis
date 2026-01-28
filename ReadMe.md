@@ -55,20 +55,34 @@ streamlit run app.py
 Open in browser:
 
 http://localhost:8501
+🌐 Deployment
+This project can be deployed using Streamlit Community Cloud:
+
+Push the project to GitHub
+
+Go to https://share.streamlit.io
+
+Click New App
+
+Select your repository
+
+Choose app.py
+
+Click Deploy
+
 🧠 System Workflow
 User Image
-↓
+   ↓
 BLIP → Caption
-↓
+   ↓
 YOLO → Objects
-↓
+   ↓
 DeepFace → Emotion
-↓
+   ↓
 Summary + Story
-↓
+   ↓
 Streamlit UI
-
-⚠Limitations
+⚠ Limitations
 Emotion detection requires a visible face.
 
 Performance depends on CPU resources.
@@ -76,6 +90,7 @@ Performance depends on CPU resources.
 Large images may slow processing.
 
 Object detection accuracy varies with lighting and angle.
+
 🔮 Future Improvements
 Add video stream processing
 
