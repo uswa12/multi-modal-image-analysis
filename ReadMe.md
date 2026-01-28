@@ -52,26 +52,23 @@ pip install -r requirements.txt
 Then run the app:
 
 streamlit run app.py
-
 Open in browser:
-http://localhost:8501
-'''
 
+http://localhost:8501
 🧠 System Workflow
 User Image
-   ↓
+↓
 BLIP → Caption
-   ↓
+↓
 YOLO → Objects
-   ↓
+↓
 DeepFace → Emotion
-   ↓
+↓
 Summary + Story
-   ↓
+↓
 Streamlit UI
 
-⚠ Limitations
-
+⚠Limitations
 Emotion detection requires a visible face.
 
 Performance depends on CPU resources.
@@ -79,9 +76,7 @@ Performance depends on CPU resources.
 Large images may slow processing.
 
 Object detection accuracy varies with lighting and angle.
-
 🔮 Future Improvements
-
 Add video stream processing
 
 Draw bounding boxes on detected objects
@@ -93,5 +88,4 @@ Multi-language captioning
 GPU acceleration
 
 🎓 Academic Use
-
 This project demonstrates multimodal AI by combining computer vision and NLP for educational and demo purposes.
