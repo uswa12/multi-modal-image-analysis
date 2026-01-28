@@ -55,20 +55,6 @@ streamlit run app.py
 Open in browser:
 
 http://localhost:8501
-🌐 Deployment
-This project can be deployed using Streamlit Community Cloud:
-
-Push the project to GitHub
-
-Go to https://share.streamlit.io
-
-Click New App
-
-Select your repository
-
-Choose app.py
-
-Click Deploy
 
 🧠 System Workflow
 User Image
