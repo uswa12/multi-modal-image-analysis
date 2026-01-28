@@ -72,18 +72,21 @@ Click Deploy
 
 🧠 System Workflow
 User Image
-   ↓
+↓
 BLIP → Caption
-   ↓
+↓
 YOLO → Objects
-   ↓
+↓
 DeepFace → Emotion
-   ↓
+↓
 Summary + Story
-   ↓
+↓
 Streamlit UI
+
 ⚠ Limitations
 Emotion detection requires a visible face.
+
+Performance depends on CPU resources.
 
 Performance depends on CPU resources.
 
@@ -104,3 +107,4 @@ GPU acceleration
 
 🎓 Academic Use
 This project demonstrates multimodal AI by combining computer vision and NLP for educational and demo purposes.
+
