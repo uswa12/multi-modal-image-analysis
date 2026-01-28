@@ -1,0 +1,10 @@
+streamlit==1.31.1
+torch
+transformers
+ultralytics
+deepface
+opencv-python-headless
+pillow
+numpy
+tensorflow
+tf-keras

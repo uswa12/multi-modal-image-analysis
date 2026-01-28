@@ -69,10 +69,38 @@ body {
 
 /* Story Box */
 .story-box {
-    background: linear-gradient(135deg, #1e293b, #334155);
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.4);
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(56, 189, 248, 0.4);
+    margin: 40px 0;
+    line-height: 2.2;
+    font-size: 18px;
+    text-align: justify;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.story-box h4 {
+    margin: 0 0 30px 0;
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(to right, #38bdf8, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.story-content {
+    font-family: 'Georgia', 'Garamond', serif;
+    font-size: 18px;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.93);
+    text-align: justify;
+    margin: 20px 0;
+    padding: 15px;
 }
 
 /* Emotion pill */
@@ -385,9 +413,13 @@ if st.session_state.caption:
         st.markdown(f"<span class='tag'>{obj}</span>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='story-box'><h4>📖 Story</h4>", unsafe_allow_html=True)
-    st.write(st.session_state.story)
-    if st.button("✨ Regenerate Story", use_container_width=True):
+    st.markdown("<div class='story-box'>", unsafe_allow_html=True)
+    st.markdown("<h4>📖 Your Story</h4>", unsafe_allow_html=True)
+    st.markdown(f"<div class='story-content'>{st.session_state.story.strip()}</div>", unsafe_allow_html=True)
+    
+    st.markdown("<div style='text-align: center; margin-top: 30px;'>", unsafe_allow_html=True)
+    if st.button("✨ Regenerate Story", use_container_width=True, key="regen_story"):
         st.session_state.story = generate_story(st.session_state.caption, st.session_state.objects)
         st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
