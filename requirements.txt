@@ -7,3 +7,4 @@ opencv-python-headless
 pillow
 numpy
 tensorflow
+tf-keras

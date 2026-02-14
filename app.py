@@ -1,3 +1,6 @@
+import os
+# This MUST be set before importing tensorflow or deepface
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import streamlit as st
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
