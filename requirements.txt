@@ -6,5 +6,5 @@ deepface
 opencv-python-headless
 pillow
 numpy
-tensorflow
+tensorflow==2.19.1
 tf-keras
