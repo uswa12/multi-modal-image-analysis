@@ -6,4 +6,4 @@ deepface
 opencv-python-headless
 pillow
 numpy
-tensorflow==2.19.1
+tensorflow==2.18.1
