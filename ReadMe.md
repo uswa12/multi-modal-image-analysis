@@ -34,27 +34,53 @@ The project integrates Computer Vision and Natural Language Processing into a si
 
 ## 📂 Project Structure
 
-project/
-│
-├── app.py
-├── requirements.txt
-└── README.md
+```
+group-2/
+├── app.py                 # Main Streamlit application
+├── requirements.txt       # Python dependencies
+├── yolov8n.pt            # YOLOv8 Nano model weights
+├── ReadMe.md             # Project documentation
+├── venv/                 # Virtual environment directory
+├── .streamlit/           # Streamlit configuration
+├── .gitignore            # Git ignore file
+├── .git/                 # Git repository
+└── __pycache__/          # Python cache directory
+```
 
 
 ---
 
 ## ▶ How to Run Locally
 
-Since no virtual environment is used, install dependencies globally:
+1. **Create a virtual environment:**
+```bash
+python3 -m venv venv
+```
 
+2. **Activate the virtual environment:**
+```bash
+source venv/bin/activate
+```
+
+3. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
-Then run the app:
+```
 
+4. **Run the application:**
+```bash
 streamlit run app.py
-Open in browser:
+```
 
+5. **Open in your browser:**
+```
 http://localhost:8501
+```
+
+6. **Deactivate the virtual environment (when done):**
+```bash
+deactivate
+```
 
 🧠 System Workflow
 User Image
