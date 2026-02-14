@@ -7,4 +7,3 @@ opencv-python-headless
 pillow
 numpy
 tensorflow==2.19.1
-tf-keras
